@@ -68,22 +68,22 @@ end
 --Blackmarket circle & help text.
 Citizen.CreateThread(function()
     while true do
-      Citizen.Wait(8)
+      local sleep = 500
        for k, v in pairs(Config.BlackMarkets) do
-          local coords = GetEntityCoords(GetPlayerPed(-1))
-          local dist = GetDistanceBetweenCoords(coords, v, true)
+          local coords = GetEntityCoords(PlayerPedId())
+          local dist = #(coords - v)
             
-          if Config.Type ~= -1 and dist < Config.DrawDistance then
+          if dist < Config.DrawDistance then
+	    local sleep = 500
             if Config.drawmarker then  
             DrawMarker(6, v.x, v.y, v.z-0.95, 0, 0, 0.1, 0, 0, 0, 1.0, 1.0, 1.0, 0, 128, 255, 200, 0, 0, 0, 0)
             end
             
             if dist <= 1 then
 		ESX.ShowHelpNotification(Config["Strings"]["openMarket"])
-            end
-
-            if IsControlJustReleased(0, 38) then
-                goodsmenu()
+		if IsControlJustReleased(0, 38) then
+		   goodsmenu()
+		end
             end
         end
       end
