@@ -1,10 +1,4 @@
-ESX = nil
-Citizen.CreateThread(function()
-    while ESX == nil do
-        Citizen.Wait(50)
-        ESX = exports["es_extended"]:getSharedObject()
-    end
-end)
+ESX = exports["es_extended"]:getSharedObject()
 
 --List of all items/weapons that the menu will offer. Remember to set isweapon to false/true depending on wether you are adding a item/weapon to the list.
 --I have listed a list featuring examples. If you wish to add lines, then you create a new row and add the following number. 
@@ -85,10 +79,11 @@ Citizen.CreateThread(function()
             end
             
             if dist <= 1 then
+		--ESX.ShowHelpNotification(Config["Strings"]["openMarket"])
                 ESX.ShowHelpNotification("Press ~INPUT_CONTEXT~ to open the blackmarket.")
             end
 
-            if IsControlJustReleased(1, 38) then
+            if IsControlJustReleased(0, 38) then
                 goodsmenu()
             end
         end
