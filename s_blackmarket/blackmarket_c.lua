@@ -3,11 +3,11 @@ ESX = exports["es_extended"]:getSharedObject()
 --List of all items/weapons that the menu will offer. Remember to set isweapon to false/true depending on wether you are adding a item/weapon to the list.
 --I have listed a list featuring examples. If you wish to add lines, then you create a new row and add the following number. 
 local goods = {
-    [1] = {label = "Knife (250,000 $)", value = "WEAPON_KNIFE", price = 250000, name = "WEAPON_KNIFE", isweapon = true},
-    [2] = {label = "Pistol (1,500,000 $)", value = "WEAPON_PISTOL", price = 1500000, name = "WEAPON_PISTOL", isweapon = true},
-    [3] = {label = "AK-47 (4,000,000 $)", value = "WEAPON_ASSAULTRIFLE", price = 4000000, name = "WEAPON_ASSAULTRIFLE", isweapon = true},
-    [4] = {label = "Bulletproofvest (65,000 $)", value = "armor", price = 65000, name = "armor", isweapon = false},
-    [5] = {label = "Lockpick (3,000 $)", value = "lockpick", price = 3000, name = "lockpick", isweapon = false},
+    {label = "Knife (250,000 $)", value = "WEAPON_KNIFE", price = 250000, name = "WEAPON_KNIFE", isweapon = true},
+    {label = "Pistol (1,500,000 $)", value = "WEAPON_PISTOL", price = 1500000, name = "WEAPON_PISTOL", isweapon = true},
+    {label = "AK-47 (4,000,000 $)", value = "WEAPON_ASSAULTRIFLE", price = 4000000, name = "WEAPON_ASSAULTRIFLE", isweapon = true},
+    {label = "Bulletproofvest (65,000 $)", value = "armor", price = 65000, name = "armor", isweapon = false},
+    {label = "Lockpick (3,000 $)", value = "lockpick", price = 3000, name = "lockpick", isweapon = false},
 }
 
 --Dealer Ped coordinates.
@@ -35,8 +35,8 @@ function goodsmenu()
 
     local elements = {}
 
-    for i=1, #goods, 1 do
-        table.insert(elements, goods[i])
+    for i, item in ipairs(goods) do
+	table.insert(elements, item)	
     end
 
     ESX.UI.Menu.CloseAll()
