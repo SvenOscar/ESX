@@ -55,7 +55,7 @@ function goodsmenu()
                     TriggerServerEvent('s_blackmarket:buy', data.current.isweapon, data.current.name, data.current.price)
                     ESX.ShowNotification('You bought '.. data.current.label)
                 else
-                    ESX.ShowNotification('You cant afford this product!')
+                    ESX.ShowNotification(Config["Strings"]["notEnough"])
                 end
             end           
         end,
@@ -79,8 +79,7 @@ Citizen.CreateThread(function()
             end
             
             if dist <= 1 then
-		--ESX.ShowHelpNotification(Config["Strings"]["openMarket"])
-                ESX.ShowHelpNotification("Press ~INPUT_CONTEXT~ to open the blackmarket.")
+		ESX.ShowHelpNotification(Config["Strings"]["openMarket"])
             end
 
             if IsControlJustReleased(0, 38) then
