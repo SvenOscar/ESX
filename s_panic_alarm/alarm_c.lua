@@ -18,13 +18,14 @@ end)
 --Activates panic alarm. Line 30 is where you would choose your custom alarm sound. Example name would be =  alarm.ogg.
 Citizen.CreateThread(function()
 	while true do
-		Wait(1)
+		local sleep = 500
 
 		local coords = GetEntityCoords(PlayerPedId())
-	
-		if IsControlJustPressed(0, 74) and IsControlPressed(0, 61) then
-			if ESX.GetPlayerData().job.name == 'police' or ESX.GetPlayerData().job.name == 'ambulance' then
-					if activate == false then
+		
+		if ESX.GetPlayerData().job.name == 'police' or ESX.GetPlayerData().job.name == 'ambulance' then
+		        sleep = 0
+		        if IsControlJustPressed(0, 74) and IsControlPressed(0, 61) then
+					if not activate then
 						activate = true
 						ESX.ShowNotification("The panic alarm has been activated, look on the map!")
 						--TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 5.0, 'alarm.ogg', 0.8)
@@ -34,6 +35,7 @@ Citizen.CreateThread(function()
 					end
 				end
 		end
+		Wait(sleep)
 	end
 end)
 
