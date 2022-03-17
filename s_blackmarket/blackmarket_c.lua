@@ -36,7 +36,7 @@ function goodsmenu()
     local elements = {}
 
     for i, item in ipairs(goods) do
-	table.insert(elements, item)	
+        table.insert(elements, item)	
     end
 
     ESX.UI.Menu.CloseAll()
@@ -55,7 +55,7 @@ function goodsmenu()
                     TriggerServerEvent('s_blackmarket:buy', data.current.isweapon, data.current.name, data.current.price)
                     ESX.ShowNotification('You bought '.. data.current.label)
                 else
-                    ESX.ShowNotification(Config["Strings"]["notEnough"])
+                    ESX.ShowNotification('You cant afford this product!')
                 end
             end           
         end,
@@ -68,25 +68,25 @@ end
 --Blackmarket circle & help text.
 Citizen.CreateThread(function()
     while true do
-      local sleep = 500
+      Citizen.Wait(8)
        for k, v in pairs(Config.BlackMarkets) do
-          local coords = GetEntityCoords(PlayerPedId())
-          local dist = #(coords - v)
-            
-          if dist < Config.DrawDistance then
-	    local sleep = 500
+          local coords = GetEntityCoords(GetPlayerPed(-1))
+          local dist = GetDistanceBetweenCoords(coords, v, true)
+
+          if Config.Type ~= -1 and dist < Config.DrawDistance then
             if Config.drawmarker then  
             DrawMarker(6, v.x, v.y, v.z-0.95, 0, 0, 0.1, 0, 0, 0, 1.0, 1.0, 1.0, 0, 128, 255, 200, 0, 0, 0, 0)
             end
-            
+
             if dist <= 1 then
-		ESX.ShowHelpNotification(Config["Strings"]["openMarket"])
-		if IsControlJustReleased(0, 38) then
-		   goodsmenu()
-		end
+                --ESX.ShowHelpNotification(Config["Strings"]["openMarket"])
+                ESX.ShowHelpNotification("Press ~INPUT_CONTEXT~ to open the blackmarket.")
+            end
+
+            if IsControlJustReleased(0, 38) then
+                goodsmenu()
             end
         end
-	Wait(sleep)
       end
     end
   end)
@@ -100,4 +100,5 @@ hasMoney = function(money)
     end
 
     return false
+
 end
